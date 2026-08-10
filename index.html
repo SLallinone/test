@@ -33,11 +33,18 @@
         .book-icon { 
             position: absolute; 
             font-size: 3rem; 
-            animation: floatUp 6s linear infinite; 
+            animation: floatDown 6s linear infinite; 
             pointer-events: none; 
             opacity: 0.9;
         }
-        @keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(-10vh) rotate(15deg); opacity: 0; } }
+        
+        /* Flags now fall from Top to Bottom */
+        @keyframes floatDown { 
+            0% { transform: translateY(-10vh) rotate(-15deg); opacity: 0; } 
+            10% { opacity: 1; } 
+            90% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(15deg); opacity: 0; } 
+        }
         
         .glass-card { background: rgba(255, 255, 255, 0.90); backdrop-filter: blur(20px); border-radius: 2rem; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 2px solid rgba(255, 255, 255, 0.8); }
         .digital-id { background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%); }
@@ -52,9 +59,10 @@
     
     <div id="loginSection" class="w-full max-w-sm glass-card p-8 z-10 transition-all duration-500 border-t-4 border-t-orange-500 border-b-4 border-b-green-600">
         <div class="text-center mb-8">
-            <!-- FIXED LOGO: Replaced emoji div with the logo.png image tag -->
-            <img src="logo.png" alt="Safal Library Logo" class="w-24 h-24 mx-auto mb-4 rounded-2xl shadow-lg border-2 border-slate-200 object-cover bg-white">
-            
+            <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg border-4 border-orange-400 p-1 overflow-hidden">
+                <!-- Using your custom local logo. Make sure logo.png is on your GitHub repo -->
+                <img src="logo.png" alt="Safal Library Logo" class="w-full h-full object-cover rounded-full">
+            </div>
             <h1 class="text-3xl font-black text-slate-800 tracking-tight">Student Portal</h1>
             <p class="text-sm font-bold text-orange-600 uppercase tracking-widest mt-1">Safal Library <span class="text-blue-700"></span></p>
         </div>
@@ -573,15 +581,21 @@
         function formatTime(t){if(!t)return"--";const[h,m]=t.split(':');return`${h%12||12}:${m}${h>=12?'PM':'AM'}`;}
         function formatDateStr(dateStr) { if(!dateStr) return "--/--/----"; const d = new Date(dateStr); return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); }
         
-        // FIXED BACKGROUND GENERATOR: Uses Wikimedia Indian Flag Image
+        // 🚀 Modified Background Generator (Flags Falling Down)
         const bgContainer = document.getElementById('bg-animation');
         for(let i=0; i<30; i++){ 
             const b = document.createElement('div'); 
             b.className = 'book-icon flex items-center justify-center'; 
-            b.style.left = Math.random() * 100 + 'vw'; 
+            
+            // Random horizontal start position
+            b.style.left = (Math.random() * 100) + 'vw'; 
+            
             b.style.animationDuration = (5 + Math.random() * 5) + 's'; 
             b.style.animationDelay = (Math.random() * 4) + 's'; 
-            b.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" style="width: 40px; border-radius: 4px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">'; 
+            
+            // Replaced the emoji with an SVG image tag
+            b.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" style="width: 35px; border-radius: 4px; opacity: 0.8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">'; 
+            
             bgContainer.appendChild(b);
         }
 
