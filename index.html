@@ -33,17 +33,17 @@
         .book-icon { 
             position: absolute; 
             font-size: 3rem; 
-            animation: floatDown 6s linear infinite; 
+            animation: floatUp 6s ease-in infinite; 
             pointer-events: none; 
             opacity: 0.9;
         }
         
-        /* Flags now fall from Top to Bottom */
-        @keyframes floatDown { 
-            0% { transform: translateY(-10vh) rotate(-15deg); opacity: 0; } 
+        /* Flags now float up from bottom to top with a slight spin */
+        @keyframes floatUp { 
+            0% { transform: translateY(110vh) rotate(-20deg); opacity: 0; } 
             10% { opacity: 1; } 
             90% { opacity: 1; }
-            100% { transform: translateY(110vh) rotate(15deg); opacity: 0; } 
+            100% { transform: translateY(-20vh) rotate(45deg); opacity: 0; } 
         }
         
         .glass-card { background: rgba(255, 255, 255, 0.90); backdrop-filter: blur(20px); border-radius: 2rem; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 2px solid rgba(255, 255, 255, 0.8); }
@@ -60,7 +60,7 @@
     <div id="loginSection" class="w-full max-w-sm glass-card p-8 z-10 transition-all duration-500 border-t-4 border-t-orange-500 border-b-4 border-b-green-600">
         <div class="text-center mb-8">
             <div class="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg border-4 border-orange-400 p-1 overflow-hidden">
-                <!-- Using your custom local logo. Make sure logo.png is on your GitHub repo -->
+                <!-- Using your custom local logo (logo.png) -->
                 <img src="logo.png" alt="Safal Library Logo" class="w-full h-full object-cover rounded-full">
             </div>
             <h1 class="text-3xl font-black text-slate-800 tracking-tight">Student Portal</h1>
@@ -581,17 +581,14 @@
         function formatTime(t){if(!t)return"--";const[h,m]=t.split(':');return`${h%12||12}:${m}${h>=12?'PM':'AM'}`;}
         function formatDateStr(dateStr) { if(!dateStr) return "--/--/----"; const d = new Date(dateStr); return d.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); }
         
-        // 🚀 Modified Background Generator (Flags Falling Down)
+        // 🚀 Modified Background Generator (Indian Flags moving bottom to top randomly)
         const bgContainer = document.getElementById('bg-animation');
         for(let i=0; i<30; i++){ 
             const b = document.createElement('div'); 
             b.className = 'book-icon flex items-center justify-center'; 
-            
-            // Random horizontal start position
-            b.style.left = (Math.random() * 100) + 'vw'; 
-            
-            b.style.animationDuration = (5 + Math.random() * 5) + 's'; 
-            b.style.animationDelay = (Math.random() * 4) + 's'; 
+            b.style.left = Math.random() * 100 + 'vw'; 
+            b.style.animationDuration = (4 + Math.random() * 6) + 's'; 
+            b.style.animationDelay = (Math.random() * 5) + 's'; 
             
             // Replaced the emoji with an SVG image tag
             b.innerHTML = '<img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" style="width: 35px; border-radius: 4px; opacity: 0.8; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">'; 
